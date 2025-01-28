@@ -1,0 +1,16 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="3">
+            <item index="0" class="java.lang.String" itemvalue="Flask_Breadcrumbs-0.5.1-py2.py3-none-any.whl" />
+            <item index="1" class="java.lang.String" itemvalue="Flask_Menu-0.7.2-py3-none-any" />
+            <item index="2" class="java.lang.String" itemvalue="six-1.16.0-py2.py3-none-any.whl" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
