@@ -48,6 +48,7 @@ class Deck:
                 print("+++ Impossibile to retrieve images. +++")
                 print(f"+++ Exception: {Exception}")
 
+        """
         # organise the images into sheets
         with
         images = [Image.open(x) for x in ['Test1.jpg', 'Test2.jpg', 'Test3.jpg']]
@@ -64,3 +65,4 @@ class Deck:
             x_offset += im.size[0]
 
         new_im.save('test.jpg')
+        """
