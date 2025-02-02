@@ -21,7 +21,8 @@ def call_scryfall(name: str, folder):
 
 
 
-    file_path = os.path.join(folder, res["data"][0]["name"] + "_" + res["data"][0]["oracle_id"] + ".png")
+    # file_path = os.path.join(folder, res["data"][0]["name"] + "_" + res["data"][0]["oracle_id"] + ".png")
+    file_path = os.path.join(folder, res["data"][0]["name"].replace(" ", "_") + ".png")
     with open(file_path, "wb") as handle:
         time.sleep(0.5)
         handle.write(img.read())

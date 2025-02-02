@@ -1,4 +1,5 @@
 import os
+import math
 import pandas as pd
 from PIL import Image
 
@@ -48,21 +49,41 @@ class Deck:
                 print("+++ Impossibile to retrieve images. +++")
                 print(f"+++ Exception: {Exception}")
 
-        """
-        # organise the images into sheets
-        with
-        images = [Image.open(x) for x in ['Test1.jpg', 'Test2.jpg', 'Test3.jpg']]
-        widths, heights = zip(*(i.size for i in images))
+        dest_folder = os.path.join(FOLDER_ADDRESS, self.name, "proxies", "sheets")
 
-        total_width = sum(widths)
-        max_height = max(heights)
+        if not os.path.exists(dest_folder):
+            os.mkdir(dest_folder)
 
-        new_im = Image.new('RGB', (total_width, max_height))
+        cards = self.decklist.reindex(self.decklist.index.repeat(self.decklist.quantity)).reset_index()
+        cards["card"] = cards["card"].apply(lambda x: x.replace(" ", "_") + ".png")
 
-        x_offset = 0
-        for im in images:
-            new_im.paste(im, (x_offset, 0))
-            x_offset += im.size[0]
+        # calculate number of sheets
+        num = math.ceil(cards.shape[0] / 6)
 
-        new_im.save('test.jpg')
-        """
+        for i in range(0, num):
+            images = [Image.open(os.path.join(pf, x)) for x in cards["card"][i*6:(i+1)*6] ]
+
+            widths, heights = zip(*(i.size for i in images))
+
+            total_width = (max(widths) + 10 ) * 3
+            max_height = (max(heights) + 20) * 2
+
+            new_im = Image.new('RGB', (total_width, max_height), color = (255,255,255))
+
+            for idx, im in enumerate(images):
+                x_offset = ((idx % 3) * (im.size[0] + 20))
+                y_offset = ((idx % 2) * (im.size[1] + 10))
+                new_im.paste(im, (x_offset, y_offset))
+
+            sheet_name = "sheet_" + str(i+1) + ".png"
+            new_im.save(os.path.join(dest_folder, sheet_name))
+        print("Hell Yeah")
+
+
+if __name__ == "__main__":
+    d = Deck(name="hail_the_nightmare")
+
+    # d.download_images()
+    d.check_images()
+
+    print("Heck Yeah")
